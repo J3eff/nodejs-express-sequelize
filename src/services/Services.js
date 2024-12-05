@@ -1,34 +1,34 @@
-const dataSource = require('../models');
+const dataSource = require('../database/models');
 
 class Services {
-    constructor(nomeDoModel) {
-        this.model = nomeDoModel;
-    }
+  constructor(nomeDoModel) {
+    this.model = nomeDoModel;
+  }
 
-    async pegaTodosOsRegistros() {
-        return dataSource[this.model].findAll();
-    }
+  async pegaTodosOsRegistros() {
+    return dataSource[this.model].findAll();
+  }
 
-    async pegaUmRegistroPorId(id) {
-      return dataSource[this.model].findByPk(id);
-    }
+  async pegaUmRegistroPorId(id) {
+    return dataSource[this.model].findByPk(id);
+  }
 
-    async criaRegistro(dadosDoRegistro) {
-      return dataSource[this.model].create(dadosDoRegistro);
-    }
+  async criaRegistro(dadosDoRegistro) {
+    return dataSource[this.model].create(dadosDoRegistro);
+  }
 
-    async atualizaRegistro(dadosAtualizados, id) {
-        const listaDeRegistrosAtualizado = dataSource[this.model].update(dadosAtualizados, { where: { id: id } })
+  async atualizaRegistro(dadosAtualizados, id) {
+    const listaDeRegistrosAtualizado = dataSource[this.model].update(dadosAtualizados, { where: { id: id } });
 
-        if(listaDeRegistrosAtualizado[0] === 0)
-            return false
+    if(listaDeRegistrosAtualizado[0] === 0)
+      return false;
         
-        return true;
-    }
+    return true;
+  }
 
-    async excluiRegistro(id) {
-      return dataSource[this.model].destroy({ where: { id: id } });
-    }
+  async excluiRegistro(id) {
+    return dataSource[this.model].destroy({ where: { id: id } });
+  }
 }
 
 module.exports = Services;
